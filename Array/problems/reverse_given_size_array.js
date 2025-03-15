@@ -25,24 +25,35 @@ Output: 8, 7, 6, 5, 4, 3, 2, 1
 const input = [1, 2, 3, 4, 5, 6, 7, 8];
 
 function reverseGivenSize(arr, size) {
-  let zeroIndexedSize = size - 1;
-  for (let i = 0; i < arr.length; i++) {
-    if (i + size > arr.length - 1) {
-      zeroIndexedSize = arr.length - 1 - i;
+  let k = size - 1;
+  for (let i = 0; i < arr.length - 1; i = i + k) {
+    if (i + k > arr.length - 1) {
+      k = arr.length - 1 - i;
     }
-    let count = 0;
-    for (let j = i + zeroIndexedSize; j > arr.length - size; j--) {
-      const temp = arr[j];
-      arr[j] = arr[i + count];
-      arr[i + count] = temp;
-      count++;
+
+    let left = i,
+      right = i + k;
+
+    console.log(left, k, right);
+    while (left < right) {
+      console.log(left, right);
+      // [(arr[left], arr[right])] = [
+      //   arr[right],
+      //   arr[left],
+      // ];
+
+      const temp = arr[right];
+      arr[right] = arr[left];
+      arr[left] = temp;
+      left++;
+      right--;
     }
-    i = i + size;
+    console.log(arr);
   }
   return arr;
 }
 
-console.log(reverseGivenSize(input, 10));
+console.log(reverseGivenSize(input, 5));
 
 /*
 Time - O(n)
