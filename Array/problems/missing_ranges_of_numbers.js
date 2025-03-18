@@ -46,3 +46,40 @@ console.log(missingRanges(input, 10, 50));
 Time - O(n)
 space - O(1)
 */
+
+//Simple Method
+
+// JavaScript program to calculate missing ranges in an array
+function missingRanges(arr, lower, upper) {
+  const n = arr.length;
+  const res = [];
+
+  // Check for missing range before the first element
+  if (lower < arr[0]) {
+    res.push([lower, arr[0] - 1]);
+  }
+
+  // Check for missing ranges between consecutive elements
+  for (let i = 0; i < n - 1; i++) {
+    if (arr[i + 1] - arr[i] > 1) {
+      res.push([arr[i] + 1, arr[i + 1] - 1]);
+    }
+  }
+
+  // Check for missing range after the last element
+  if (upper > arr[n - 1]) {
+    res.push([arr[n - 1] + 1, upper]);
+  }
+
+  return res;
+}
+
+// Driver code
+const lower = 10;
+const upper = 50;
+const arr = [14, 15, 20, 30, 31, 45];
+const res = missingRanges(arr, lower, upper);
+
+for (const range of res) {
+  console.log(`${range[0]} ${range[1]}`);
+}
